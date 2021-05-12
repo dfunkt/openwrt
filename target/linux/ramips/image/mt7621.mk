@@ -274,6 +274,25 @@ define Device/dlink_dir-8xx-r1
 	pad-rootfs | append-metadata | check-size
 endef
 
+define Device/dlink_dir-xx50-a1
+  $(Device/dsa-migration)
+  BLOCKSIZE := 64k
+  PAGESIZE := 2048
+  IMAGE_SIZE := 16064k
+  UBINIZE_OPTS := -E 5
+  DEVICE_VENDOR := D-Link
+  DEVICE_PACKAGES := kmod-mt7603 kmod-mt7615e kmod-mt7615-firmware
+  KERNEL := $$(KERNEL) | uimage-padhdr 96
+  IMAGES += factory.bin
+endef
+
+define Device/dlink_dir-2150-a1
+  $(Device/dlink_dir-xx50-a1)
+  DEVICE_MODEL := DIR-2150
+  DEVICE_VARIANT := A1
+endef
+TARGET_DEVICES += dlink_dir-2150-a1
+
 define Device/dlink_dir-xx60-a1
   $(Device/dsa-migration)
   BLOCKSIZE := 128k
